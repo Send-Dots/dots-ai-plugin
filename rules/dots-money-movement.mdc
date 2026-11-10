@@ -1,8 +1,9 @@
 ---
-description: Safety rules for Dots operations that move money, such as payouts, payout batches, and transfers. Apply before calling execute_tool on the dots or dots-sandbox MCP server.
-alwaysApply: false
+description: Safety rules for write operations on the dots and dots-sandbox MCP servers, such as payouts, payout batches, transfers, and user changes.
+alwaysApply: true
 ---
 
-- Before any money-moving `execute_tool` call, run it with `dry_run: true`, show the user the preview, and wait for explicit approval. Then resend the identical call with `dry_run` removed and `confirm: true` added (the server rejects both together). If the operation, environment, recipient, amount, or `idempotency_key` changes, preview and get approval again.
-- Pass an `idempotency_key` on every payout. On a timeout, check the payout status before retrying with the same key.
-- Never retry a failed write with different amounts, recipients, or environments without asking.
+- Before any Dots `execute_tool` call whose operation is not `read_only`, run it with `dry_run: true` (or, if it has no `dry_run`, describe the exact call), show the user the preview with the server name, and wait for explicit approval. Then send the same arguments with `dry_run` removed and `confirm: true` added (the server rejects both together). If the operation, server, recipient, amount, or idempotency key changes, preview and get approval again.
+- For money movement, generate a UUID idempotency key before the preview and keep it for the confirmed call. Put it inside the `body` JSON for operations that take a body; `dots_payouts_send` and `dots_payout_batches_create` take it as a top-level argument.
+- On a timeout, check the result with a read operation before retrying, and retry only with the same idempotency key.
+- Never retry a failed write with different amounts, recipients, or servers without asking.
