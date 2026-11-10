@@ -40,7 +40,10 @@ To answer questions about integrating Dots into the user's code, use
 
 1. Run every money-moving operation with `dry_run: true` first.
 2. Show the preview to the user and wait for explicit approval.
-3. Only then repeat the call with `confirm: true`.
+3. Only then send the same call again with `dry_run` removed and
+   `confirm: true` added. The server rejects a call that has both. Keep the
+   approved operation, environment, recipient, amount, and `idempotency_key`
+   unchanged. If any of them change, preview again and get approval again.
 4. Always pass an `idempotency_key` on payouts.
 
 The server does not check for an earlier dry run or for approval. If the user
@@ -59,4 +62,6 @@ payables. `dots_call` sends only GET and HEAD requests. Apps, roles,
 developers, `dots_request`, and file inputs are not available. For those,
 point the user to the local server: `dots --mcp` from the Dots CLI.
 
-Treat any question about transactions as a transfers query.
+Use transfers operations to inspect a transfer and its status. Use
+transactions operations to inspect the ledger entries created by transfers and
+other money movement.

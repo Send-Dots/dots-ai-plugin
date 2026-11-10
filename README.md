@@ -14,7 +14,7 @@ Connects Cursor to the hosted [Dots](https://usedots.com) MCP server, so the age
 
 The first time Cursor connects to a server, it opens the Dots dashboard. Pick the App the agent can act on. The agent gets your dashboard permissions on that App and can't switch Apps or environments.
 
-Money movement is off unless you check **Allow money movement** when you authorize. Access expires after 30 days. To revoke it sooner, open the App's developer tools in dashboard settings and click **Revoke** under **Connected MCP clients**.
+Money movement is off unless you check **Allow money movement** when you authorize. Access expires after 30 days. To revoke it sooner, open the App's developer tools in dashboard settings and click **Revoke** under **Connected MCP clients**. Apps on the Core plan don't have developer tools, so their access lasts until it expires.
 
 If you only need one environment, disable the other server in Cursor's MCP settings.
 
