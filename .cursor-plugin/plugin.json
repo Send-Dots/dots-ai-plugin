@@ -1,0 +1,14 @@
+{
+  "name": "dots",
+  "displayName": "Dots",
+  "version": "0.1.0",
+  "description": "Connect Cursor to the hosted Dots MCP server. Search the Dots docs and API, and run users, transfers, flows, and payout operations on the Dots App you authorize.",
+  "author": {
+    "name": "Dots",
+    "email": "info@dots.dev"
+  },
+  "homepage": "https://docs.usedots.com/dots-cli",
+  "license": "MIT",
+  "keywords": ["dots", "payouts", "payments", "fintech", "mcp", "api"],
+  "logo": "assets/logo.svg"
+}

@@ -1,0 +1,10 @@
+{
+  "mcpServers": {
+    "dots-sandbox": {
+      "url": "https://mcp.dots.dev/sandbox/mcp"
+    },
+    "dots": {
+      "url": "https://mcp.dots.dev/mcp"
+    }
+  }
+}
