@@ -1,0 +1,42 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "dots",
+  "version": "0.2.0",
+  "description": "Connect to the hosted Dots MCP server. Search the Dots docs and API, and run users, transfers, flows, and payout operations on the Dots App you authorize.",
+  "author": {
+    "name": "Dots",
+    "email": "info@dots.dev",
+    "url": "https://usedots.com"
+  },
+  "homepage": "https://docs.usedots.com/dots-cli",
+  "repository": "https://github.com/Send-Dots/dots-plugin",
+  "license": "MIT",
+  "keywords": [
+    "dots",
+    "dots payouts",
+    "dots payout links",
+    "dots api"
+  ],
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Dots",
+        "shortDescription": "Search the Dots API and docs, and run payouts on your Dots App",
+        "longDescription": "Search the Dots docs and API, and run users, transfers, flows, payout links, and payout operations on the Dots App you authorize. Previews money-moving calls with a dry run and waits for your approval before sending them.",
+        "developerName": "Dots",
+        "category": "Finance",
+        "capabilities": [
+          "Read",
+          "Write"
+        ],
+        "websiteURL": "https://usedots.com",
+        "defaultPrompt": [
+          "Use Dots to list the 10 most recent users in my sandbox App.",
+          "Use Dots to explain how payout links work and how to create one."
+        ],
+        "privacyPolicyURL": "https://usedots.com/privacy/",
+        "termsOfServiceURL": "https://usedots.com/terms/"
+      }
+    }
+  }
+}

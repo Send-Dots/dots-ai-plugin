@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "dots-sandbox": {
+      "type": "http",
+      "url": "https://mcp.dots.dev/sandbox/mcp"
+    },
+    "dots": {
+      "type": "http",
+      "url": "https://mcp.dots.dev/mcp"
+    }
+  }
+}

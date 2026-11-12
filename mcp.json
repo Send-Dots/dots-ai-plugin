@@ -1,9 +1,12 @@
 {
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/mcp.schema.json",
   "mcpServers": {
     "dots-sandbox": {
+      "type": "streamable-http",
       "url": "https://mcp.dots.dev/sandbox/mcp"
     },
     "dots": {
+      "type": "streamable-http",
       "url": "https://mcp.dots.dev/mcp"
     }
   }

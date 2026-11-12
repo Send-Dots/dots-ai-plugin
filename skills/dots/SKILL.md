@@ -80,7 +80,7 @@ not check **Allow money movement** when they authorized, the confirmed call
 fails with an error that mentions `DOTS_BLOCK_MONEY_MOVEMENT` or says "This
 MCP grant does not include money movement". Both mean the same thing. Do not
 suggest changing environment variables. Tell the user to log out of that
-server in Cursor's MCP settings, reconnect, and check **Allow money
+server in the MCP client's settings, reconnect, and check **Allow money
 movement**. That checkbox requires payout permissions on the App.
 
 ### Timeouts and retries
