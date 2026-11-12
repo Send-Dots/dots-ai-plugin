@@ -20,14 +20,22 @@ environment to use, ask before any `execute_tool` call. Name the server
 
 ## Tools
 
-1. `search_tools`: search operations and docs by keyword, for example
-   `send payout`, `list users`, or `what is a payout link`. Results include
-   each operation's name and input schema. `limit` defaults to 10, max 100.
-2. `read_doc`: read a docs page as markdown, for example
+1. `search_tools`: search operations and docs by keyword or question, for
+   example `send payout`, `list users`, or `what is a payout link`. It returns
+   one ranked list. `limit` defaults to 10, max 100.
+   - Operation results (`kind: "operation"`) include `name`, `description`,
+     `read_only`, `input_schema`, `guide` (a related docs path for
+     `read_doc`), and `command` (the matching `dots` CLI command).
+   - Doc results (`kind: "doc"`) include `path`, `title`, the best-matching
+     `section`, and `url`.
+2. `read_doc`: read a docs page as markdown. Pass a doc result's `path` or
+   `url`, an operation's `guide`, or a docs link, for example
    `guides/payout-links` or
-   `api-reference/payout-links/create-payout-link`.
-3. `execute_tool`: run an operation by name with arguments that match its
-   schema:
+   `api-reference/payout-links/create-payout-link`. Paths have no leading
+   slash or file extension. Docs are bundled with the server, so this does not
+   call the Dots API.
+3. `execute_tool`: run an operation by name with arguments keyed by the
+   property names in its `input_schema`:
 
    ```json
    { "name": "dots_users_list", "arguments": { "query": ["limit=10"] } }
@@ -37,7 +45,9 @@ Always call `search_tools` to find the operation name and schema before
 calling `execute_tool`. Do not guess operation names.
 
 To answer questions about integrating Dots into the user's code, use
-`search_tools` and `read_doc` and cite the docs page you used.
+`search_tools` and `read_doc` and cite the docs page you used. When the user
+wants to script an operation, the result's `command` field gives the
+equivalent `dots` CLI command.
 
 ## Writes and payouts
 
@@ -46,12 +56,11 @@ Every `search_tools` result has a `read_only` flag. Treat any operation whose
 follow these steps:
 
 1. For money-moving operations, generate a UUID v4 as the idempotency key
-   before the preview. Put it in the right place:
-   - If the operation takes a `body`, put `"idempotency_key": "<uuid>"`
-     inside the body JSON. The API ignores the top-level `idempotency_key`
-     argument for these operations.
-   - `dots_payouts_send` and `dots_payout_batches_create` take
-     `idempotency_key` as a top-level argument.
+   before the preview and pass it as the top-level `idempotency_key`
+   argument. The server stores it in the request body, where the API reads
+   it. If you also set `idempotency_key` inside `body`, the two must match.
+   An operation whose body has no idempotency key rejects the argument with
+   "does not accept --idempotency-key"; drop it for that operation.
 2. Run the call with `dry_run: true`. If the operation's schema has no
    `dry_run`, describe the exact call to the user instead.
 3. Show the preview to the user, naming the server, and wait for explicit
@@ -80,8 +89,8 @@ Each operation times out after 120 seconds. A timed-out or cancelled payout
 may still have been submitted. Before retrying, check what happened with a
 read operation such as `dots_payout_links_list`, `dots_payout_batches_get`, or
 `dots_transfers_get` (use `search_tools` for the exact names). If you retry,
-reuse the same idempotency key in the same place, so the API returns the
-existing payout instead of creating a second one.
+reuse the same idempotency key, so the API returns the original payout,
+transfer, or payout link instead of creating another.
 
 If the server replies "The hosted MCP server is busy; retry shortly", nothing
 was sent, so it is safe to retry.

@@ -4,6 +4,6 @@ alwaysApply: true
 ---
 
 - Before any Dots `execute_tool` call whose operation is not `read_only`, run it with `dry_run: true` (or, if it has no `dry_run`, describe the exact call), show the user the preview with the server name, and wait for explicit approval. Then send the same arguments with `dry_run` removed and `confirm: true` added (the server rejects both together). If the operation, server, recipient, amount, or idempotency key changes, preview and get approval again.
-- For money movement, generate a UUID idempotency key before the preview and keep it for the confirmed call. Put it inside the `body` JSON for operations that take a body; `dots_payouts_send` and `dots_payout_batches_create` take it as a top-level argument.
+- For money movement, generate a UUID idempotency key before the preview and keep it for the confirmed call. Pass it as the top-level `idempotency_key` argument; the server writes it into the request body.
 - On a timeout, check the result with a read operation before retrying, and retry only with the same idempotency key.
 - Never retry a failed write with different amounts, recipients, or servers without asking.
