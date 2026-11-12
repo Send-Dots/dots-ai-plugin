@@ -9,7 +9,7 @@
     "url": "https://usedots.com"
   },
   "homepage": "https://docs.usedots.com/dots-cli",
-  "repository": "https://github.com/Send-Dots/dots-plugin",
+  "repository": "https://github.com/Send-Dots/dots-ai-plugin",
   "license": "MIT",
   "keywords": [
     "dots",
