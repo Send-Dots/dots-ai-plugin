@@ -43,6 +43,15 @@ One repository serves every client. Each client reads its own manifest:
 
 All clients share `skills/dots/SKILL.md`. When you change a server URL, update both `mcp.json` and `.mcp.json`. When you release, raise `version` in all three manifests.
 
+## Checks
+
+CI runs these on every pull request and daily, and you can run them locally:
+
+- `python3 scripts/check_manifests.py`: the three manifests share `name`, `version`, `repository`, and `license`, and both MCP configs list the same servers.
+- `python3 scripts/check_schemas.py`: `plugin.json` and `mcp.json` match the Agent Plugins schemas. Requires `jsonschema`.
+- `claude plugin validate --strict .`: Claude's manifest, MCP config, and directory checks.
+- `python3 scripts/check_server_contract.py`: every operation the skill and rule name still exists on `https://mcp.dots.dev/docs`, and money-moving operations still accept `dry_run`, `confirm`, and `idempotency_key`.
+
 ## More
 
 See the [Dots CLI docs](https://docs.usedots.com/dots-cli) for the full tool reference and the local `dots --mcp` server.
