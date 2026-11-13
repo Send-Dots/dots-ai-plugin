@@ -21,7 +21,7 @@
     "com.openai": {
       "interface": {
         "displayName": "Dots",
-        "shortDescription": "Search the Dots API and docs, and run payouts on your Dots App",
+        "shortDescription": "API docs and payouts",
         "longDescription": "Search the Dots docs and API, and run users, transfers, flows, payout links, and payout operations on the Dots App you authorize. Previews money-moving calls with a dry run and waits for your approval before sending them.",
         "developerName": "Dots",
         "category": "Finance",
@@ -35,7 +35,13 @@
           "Use Dots to explain how payout links work and how to create one."
         ],
         "privacyPolicyURL": "https://usedots.com/privacy/",
-        "termsOfServiceURL": "https://usedots.com/terms/"
+        "termsOfServiceURL": "https://usedots.com/terms/",
+        "supportURL": "https://docs.usedots.com",
+        "logo": "./assets/logo-512.png",
+        "composerIcon": "./assets/composer-128.png"
+      },
+      "publication": {
+        "release_notes": "0.2.0: Add the OpenAI listing subtitle, PNG icons, support URL, and production-server review cases. Preserve shared skill behavior and hosted server endpoints."
       }
     }
   }
