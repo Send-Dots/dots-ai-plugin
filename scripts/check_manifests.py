@@ -60,6 +60,15 @@ def main():
                 f"{path} servers {servers[path]} differ from {first} servers {servers[first]}"
             )
 
+    # OpenAI's initial review requires exactly five positive and three negative cases.
+    cases = (
+        manifests["plugin.json"].get("extensions", {}).get("com.openai", {}).get("review", {}).get("test_cases")
+    )
+    if cases is not None:
+        for kind, count in (("positive", 5), ("negative", 3)):
+            if len(cases.get(kind, [])) != count:
+                errors.append(f"plugin.json review.test_cases.{kind} needs exactly {count} cases")
+
     for error in errors:
         print(f"error: {error}")
     if errors:

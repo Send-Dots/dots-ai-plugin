@@ -41,7 +41,7 @@ One repository serves every client. Each client reads its own manifest:
 | Claude, Grok Build | `.claude-plugin/plugin.json` | `.mcp.json` |
 | OpenAI Codex and ChatGPT | `plugin.json` ([Agent Plugins](https://agent-plugins.org)) | `mcp.json` |
 
-All clients share `skills/dots/SKILL.md`. When you change a server URL, update both `mcp.json` and `.mcp.json`. When you release, raise `version` in all three manifests.
+All clients share `skills/dots/SKILL.md`. When you change a server URL, update both `mcp.json` and `.mcp.json`. When you release, raise `version` in all three manifests. To build the OpenAI upload, run `python3 scripts/build_openai_zip.py`; see [docs/openai-submission.md](docs/openai-submission.md).
 
 ## Checks
 
