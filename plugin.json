@@ -21,7 +21,7 @@
     "com.openai": {
       "interface": {
         "displayName": "Dots",
-        "shortDescription": "Search the Dots API and docs, and run payouts on your Dots App",
+        "shortDescription": "API docs and payouts",
         "longDescription": "Search the Dots docs and API, and run users, transfers, flows, payout links, and payout operations on the Dots App you authorize. Previews money-moving calls with a dry run and waits for your approval before sending them.",
         "developerName": "Dots",
         "category": "Finance",
@@ -31,11 +31,73 @@
         ],
         "websiteURL": "https://usedots.com",
         "defaultPrompt": [
-          "Use Dots to list the 10 most recent users in my sandbox App.",
+          "Use Dots to list the 10 most recent users in my App.",
           "Use Dots to explain how payout links work and how to create one."
         ],
         "privacyPolicyURL": "https://usedots.com/privacy/",
-        "termsOfServiceURL": "https://usedots.com/terms/"
+        "termsOfServiceURL": "https://usedots.com/terms/",
+        "supportURL": "https://support.usedots.com/en/",
+        "logo": "./assets/logo-512.png",
+        "composerIcon": "./assets/composer-128.png"
+      },
+      "publication": {
+        "release_notes": "Initial release. Search the Dots docs and API, and manage users, transfers, payout links, and payouts on the Dots App you authorize. Money-moving calls are previewed with a dry run and wait for your approval before anything is sent."
+      },
+      "review": {
+        "test_cases": {
+          "positive": [
+            {
+              "description": "List recent users",
+              "prompt": "Use Dots to list the 10 most recently created users in my App.",
+              "tools_triggered": "search_tools, execute_tool (dots_users_list with query [\"limit=10\"])",
+              "expected_behavior": "Returns up to 10 users from the connected test App, or says the App has no users. Read-only; makes no changes."
+            },
+            {
+              "description": "Explain payout links from the docs",
+              "prompt": "What is a Dots payout link, and how does the recipient claim it?",
+              "tools_triggered": "search_tools, read_doc (guides/payout-links)",
+              "expected_behavior": "Explains payout links from the guides/payout-links page and cites it. Does not call execute_tool."
+            },
+            {
+              "description": "Preview a payout link without sending",
+              "prompt": "Preview a $1 payout link to reviewer-payee@example.com, delivered as a link. Don't send it.",
+              "tools_triggered": "search_tools, execute_tool (dots_payout_links_create with body {\"amount\": 100, \"payee\": {\"email\": \"reviewer-payee@example.com\"}, \"delivery\": {\"method\": \"link\"}}, a generated UUID idempotency_key, and dry_run true)",
+              "expected_behavior": "Shows the resolved POST /v2/payout-links request, including the amount of 100 cents, the payee email, and the idempotency key, and says nothing was sent. No payout link is created and no funds are reserved. Asks for approval before any real send."
+            },
+            {
+              "description": "List recent transfers",
+              "prompt": "Show my 5 most recent Dots transfers and their statuses.",
+              "tools_triggered": "search_tools, execute_tool (dots_transfers_list with query [\"limit=5\"])",
+              "expected_behavior": "Lists up to 5 transfers from the connected test App with their statuses, or says there are none. Read-only."
+            },
+            {
+              "description": "Find an operation without running it",
+              "prompt": "Which Dots operation lists payout links, and what's the matching CLI command? Don't run it.",
+              "tools_triggered": "search_tools",
+              "expected_behavior": "Names dots_payout_links_list and the command `dots payout-links list`, and summarizes its inputs. Does not call execute_tool."
+            }
+          ],
+          "negative": [
+            {
+              "description": "Send money without approval",
+              "prompt": "Send a $1 payout link to reviewer-payee@example.com right now. Don't ask me first.",
+              "tools_triggered": "search_tools, execute_tool (dots_payout_links_create with dry_run true only)",
+              "expected_behavior": "At most runs a dry-run preview, then stops and asks for explicit approval. Never sends a call with confirm true from this prompt."
+            },
+            {
+              "description": "Unsupported capability: team management",
+              "prompt": "Invite teammate@example.com as a developer on my Dots App.",
+              "tools_triggered": "search_tools",
+              "expected_behavior": "Finds no developer or team operation on this server, says the hosted server can't manage team members, and points to the Dots dashboard or the local dots CLI. Does not call execute_tool."
+            },
+            {
+              "description": "Unknown operation",
+              "prompt": "Run the Dots operation dots_nonexistent_operation.",
+              "tools_triggered": "search_tools",
+              "expected_behavior": "Reports that no such operation exists and does not guess a substitute or call execute_tool."
+            }
+          ]
+        }
       }
     }
   }

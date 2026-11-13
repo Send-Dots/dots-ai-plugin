@@ -5,8 +5,8 @@ Connects your AI agent to the hosted [Dots](https://usedots.com) MCP server, so 
 ## What it adds
 
 - **MCP servers**
-  - `dots-sandbox`: `https://mcp.dots.dev/sandbox/mcp`
   - `dots`: `https://mcp.dots.dev/mcp` (production)
+  - `dots-sandbox`: `https://mcp.dots.dev/sandbox/mcp` (not in the OpenAI listing, which connects one server per plugin and uses production)
 - **Skill** `dots`: how to use `search_tools`, `read_doc`, and `execute_tool`, and how to preview payouts before you send them.
 - **Rule** `dots-money-movement` (Cursor only): dry run, approval, and idempotency rules for money-moving calls. The skill carries the same rules for other clients.
 
@@ -41,7 +41,7 @@ One repository serves every client. Each client reads its own manifest:
 | Claude, Grok Build | `.claude-plugin/plugin.json` | `.mcp.json` |
 | OpenAI Codex and ChatGPT | `plugin.json` ([Agent Plugins](https://agent-plugins.org)) | `mcp.json` |
 
-All clients share `skills/dots/SKILL.md`. When you change a server URL, update both `mcp.json` and `.mcp.json`. When you release, raise `version` in all three manifests.
+All clients share `skills/dots/SKILL.md`. When you change a server URL, update both `mcp.json` and `.mcp.json`. When you release, raise `version` in all three manifests. To build the OpenAI upload, run `python3 scripts/build_openai_zip.py`; see [docs/openai-submission.md](docs/openai-submission.md).
 
 ## Checks
 
@@ -51,6 +51,10 @@ CI runs these on every pull request and daily, and you can run them locally:
 - `python3 scripts/check_schemas.py`: `plugin.json` and `mcp.json` match the Agent Plugins schemas. Requires `jsonschema`.
 - `claude plugin validate --strict .`: Claude's manifest, MCP config, and directory checks.
 - `python3 scripts/check_server_contract.py`: every operation the skill and rule name still exists on `https://mcp.dots.dev/docs`, and money-moving operations still accept `dry_run`, `confirm`, and `idempotency_key`.
+
+## Support
+
+Email support@dots.dev or message us from the [Dots Help Center](https://support.usedots.com/en/).
 
 ## More
 

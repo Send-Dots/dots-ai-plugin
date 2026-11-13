@@ -34,6 +34,8 @@ jobs:
         run: python3 scripts/check_manifests.py
       - name: Agent Plugins schemas
         run: python3 scripts/check_schemas.py
+      - name: OpenAI ZIP builds
+        run: python3 scripts/build_openai_zip.py "$RUNNER_TEMP/dots-openai.zip"
       - name: Claude plugin validation
         run: npx --yes @anthropic-ai/claude-code@2.1.322 plugin validate --strict .
 

@@ -5,17 +5,23 @@ description: Use the Dots MCP server to answer questions about the Dots API and 
 
 # Dots
 
-The plugin adds two MCP servers. Both expose the same three tools.
+Depending on the client, the plugin connects one or both of these MCP servers.
+Each exposes the same three tools.
 
 | Server | Environment |
 | --- | --- |
-| `dots-sandbox` | Sandbox (`https://mcp.dots.dev/sandbox/mcp`) |
 | `dots` | Production (`https://mcp.dots.dev/mcp`) |
+| `dots-sandbox` | Sandbox (`https://mcp.dots.dev/sandbox/mcp`) |
 
-Each server acts only on the Dots App the user picked when they authorized it.
-Never switch environments on your own. If the user hasn't said which
-environment to use, ask before any `execute_tool` call. Name the server
-(`dots` or `dots-sandbox`) in every preview and approval request.
+Use only the servers that are connected. Each acts only on the Dots App the
+user picked when they authorized it.
+
+- If both are connected and the user hasn't said which environment to use,
+  ask before any `execute_tool` call. Never switch environments on your own.
+- If only one is connected, use it, and say which environment it is before
+  any write.
+- Name the server in every preview and approval request.
+
 `search_tools` and `read_doc` return the same results on either server.
 
 ## Tools

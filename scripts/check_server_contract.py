@@ -69,6 +69,14 @@ def main():
     referenced = set()
     for path in INSTRUCTION_FILES:
         referenced |= set(re.findall(r"\bdots_[a-z_]+\b", (ROOT / path).read_text()))
+    # OpenAI review cases must use real operations. Negative cases name
+    # unsupported or made-up operations on purpose, so only positives count.
+    review = json.loads((ROOT / "plugin.json").read_text())
+    positive = (
+        review.get("extensions", {}).get("com.openai", {}).get("review", {})
+        .get("test_cases", {}).get("positive", [])
+    )
+    referenced |= set(re.findall(r"\bdots_[a-z_]+\b", json.dumps(positive)))
     for name in sorted(referenced | set(MONEY_MOVING)):
         operation = find_operation(name)
         if operation is None:
