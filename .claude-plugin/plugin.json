@@ -1,0 +1,24 @@
+{
+  "name": "dots",
+  "displayName": "Dots",
+  "version": "0.2.0",
+  "description": "Connect to the hosted Dots MCP server. Search the Dots docs and API, and run users, transfers, flows, and payout operations on the Dots App you authorize.",
+  "author": {
+    "name": "Dots",
+    "email": "info@dots.dev",
+    "url": "https://usedots.com"
+  },
+  "homepage": "https://docs.usedots.com/dots-cli",
+  "repository": "https://github.com/Send-Dots/dots-ai-plugin",
+  "license": "MIT",
+  "keywords": [
+    "dots",
+    "dots payouts",
+    "dots payout links",
+    "dots api"
+  ],
+  "icon": "./assets/logo.svg",
+  "documentationUrl": "https://docs.usedots.com/dots-cli",
+  "privacyPolicyUrl": "https://usedots.com/privacy/",
+  "termsOfServiceUrl": "https://usedots.com/terms/"
+}
