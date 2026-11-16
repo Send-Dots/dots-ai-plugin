@@ -1,6 +1,8 @@
 # Dots plugin
 
-Connects your AI agent to the hosted [Dots](https://usedots.com) MCP server, so the agent can search the Dots docs and API and run operations on your Dots App. It works in Cursor, Claude (Claude Code, claude.ai, and Cowork), OpenAI Codex and ChatGPT, and Grok Build.
+Connects your AI agent to the hosted [Dots](https://usedots.com) MCP server, so the agent can search the Dots docs and API and run operations on your Dots App. It's for Cursor and Grok Build, where the agent can send payouts with your approval.
+
+For Claude and OpenAI Codex and ChatGPT, use [Send-Dots/dots-ai-plugin-directory](https://github.com/Send-Dots/dots-ai-plugin-directory). It connects to servers that can't move money.
 
 ## What it adds
 
