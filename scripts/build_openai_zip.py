@@ -4,8 +4,17 @@
 OpenAI connects one MCP server per plugin, and it imports the review test
 cases in plugin.json only when the package declares exactly one server. The
 repo's mcp.json declares production and sandbox for the other clients, so the
-ZIP's copy keeps only production. Everything else is taken from the
-committed tree, so uncommitted edits never ship.
+ZIP's copy keeps only production.
+
+The portal reads the server's authentication from
+extensions["com.openai"].auth in mcp.json. The Agent Plugins 1.0.0 schema
+doesn't allow `extensions` on a server, and Cursor reads the same file, so the
+block is added to the ZIP's copy only. The Dots authorization server supports
+discovery, dynamic client registration, and public PKCE clients, and the user
+picks scopes on the consent page, so the block declares only DCR.
+
+Everything else is taken from the committed tree, so uncommitted edits never
+ship.
 
 Usage: python3 scripts/build_openai_zip.py [OUTPUT]
 """
@@ -18,6 +27,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 SERVER = "dots"
+AUTH = {"type": "oauth", "client": {"mode": "dcr"}}
 PATHS = ["plugin.json", "mcp.json", "skills", "assets", "README.md", "LICENSE"]
 
 
@@ -33,7 +43,8 @@ def main():
     mcp = json.loads(git("show", "HEAD:mcp.json"))
     if SERVER not in mcp["mcpServers"]:
         sys.exit(f"mcp.json has no `{SERVER}` server")
-    mcp["mcpServers"] = {SERVER: mcp["mcpServers"][SERVER]}
+    server = dict(mcp["mcpServers"][SERVER], extensions={"com.openai": {"auth": AUTH}})
+    mcp["mcpServers"] = {SERVER: server}
 
     with zipfile.ZipFile(output, "w", zipfile.ZIP_DEFLATED) as archive:
         for name in files:

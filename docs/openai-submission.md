@@ -1,6 +1,6 @@
 # OpenAI submission
 
-Build the upload with `python3 scripts/build_openai_zip.py`. It packages the committed tree with an `mcp.json` that declares only the `dots` production server, because OpenAI connects one server per plugin and imports the review test cases from `plugin.json` only when the package declares exactly one. The skill handles a single connected server: it uses that server and names the environment before any write.
+Build the upload with `python3 scripts/build_openai_zip.py`. It packages the committed tree with an `mcp.json` that declares only the `dots` production server, because OpenAI connects one server per plugin and imports the review test cases from `plugin.json` only when the package declares exactly one. The ZIP's `mcp.json` also declares OAuth with dynamic client registration under `extensions.com.openai.auth`, which the portal reads for **Authentication**. The repo's `mcp.json` leaves it out, because the Agent Plugins 1.0.0 schema doesn't allow it and Cursor reads that file. The skill handles a single connected server: it uses that server and names the environment before any write.
 
 ## Imported from plugin.json
 
@@ -43,6 +43,7 @@ This isn't one of the eight review cases, because it tests a supported operation
 
 | Item | Where | Notes |
 | --- | --- | --- |
+| Domain verification | `https://mcp.dots.dev/.well-known/openai-apps-challenge` (or `https://dots.dev/...`) | Serve the token from the portal's **Connect MCP server** drawer as plain text, then select **Connect**. |
 | Publisher identity | OpenAI organization settings | Complete business verification for Dots so the listing shows the company name. |
 | Reviewer credentials and fixtures | Portal, **Review details** | See [Reviewer setup](#reviewer-setup). |
 
