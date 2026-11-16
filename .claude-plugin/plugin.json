@@ -20,5 +20,6 @@
   "icon": "./assets/logo.svg",
   "documentationUrl": "https://docs.usedots.com/dots-cli",
   "privacyPolicyUrl": "https://usedots.com/privacy/",
-  "termsOfServiceUrl": "https://usedots.com/terms/"
+  "termsOfServiceUrl": "https://usedots.com/terms/",
+  "supportUrl": "https://support.usedots.com/en/"
 }
