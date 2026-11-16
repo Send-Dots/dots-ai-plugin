@@ -41,7 +41,8 @@
         "composerIcon": "./assets/composer-128.png"
       },
       "publication": {
-        "release_notes": "Initial release. Search the Dots docs and API, and manage users, transfers, payout links, and payouts on the Dots App you authorize. Money-moving calls are previewed with a dry run and wait for your approval before anything is sent."
+        "release_notes": "Initial release. Search the Dots docs and API, and manage users, transfers, payout links, and payouts on the Dots App you authorize. Money-moving calls are previewed with a dry run and wait for your approval before anything is sent.",
+        "countries": []
       },
       "review": {
         "test_cases": {
@@ -97,7 +98,10 @@
               "expected_behavior": "Reports that no such operation exists and does not guess a substitute or call execute_tool."
             }
           ]
-        }
+        },
+        "demo_recording_url": "https://drive.google.com/file/d/1HOvDFv9-7N3Pl-3pOIeJYty1KHzHwqJj/view?usp=sharing",
+        "commerce": false,
+        "commerce_description": "The plugin sells nothing and has no checkout. It runs operations, including payouts, on the user's own Dots App, through the Dots account the user authorizes."
       }
     }
   }

@@ -5,8 +5,8 @@ Build the upload with `python3 scripts/build_openai_zip.py`. It packages the com
 ## Imported from plugin.json
 
 - Listing: subtitle, descriptions, example prompts, icons, and the support, privacy, and terms URLs, under `extensions.com.openai.interface`. Support goes to the Dots Help Center, which has a **Send us a message** contact route; the README also lists support@dots.dev.
-- Review: five positive and three negative test cases, under `extensions.com.openai.review.test_cases`.
-- Publication: release notes, under `extensions.com.openai.publication.release_notes`.
+- Review: five positive and three negative test cases, the demo recording URL, and the commerce declaration (`false`), under `extensions.com.openai.review`.
+- Publication: release notes and country availability (empty, meaning no restriction), under `extensions.com.openai.publication`.
 
 ## Reviewer setup
 
@@ -43,9 +43,6 @@ This isn't one of the eight review cases, because it tests a supported operation
 
 | Item | Where | Notes |
 | --- | --- | --- |
-| Demo recording | `review.demo_recording_url` | Record the shot list below and host it at a URL reviewers can open. |
-| Country availability | `publication.countries` | Omit or leave empty for no restriction. Dots pays out to 190+ countries, but that's payee coverage, not where the plugin is offered. |
-| Commerce declaration | `review.commerce`, `review.commerce_description` | The plugin sells nothing and has no in-chat checkout; it runs payouts on the user's own Dots App. Confirm how OpenAI classifies payout tools before you declare `false`. |
 | Publisher identity | OpenAI organization settings | Complete business verification for Dots so the listing shows the company name. |
 | Reviewer credentials and fixtures | Portal, **Review details** | See [Reviewer setup](#reviewer-setup). |
 
